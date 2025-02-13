@@ -1,0 +1,68 @@
+﻿<Page x:Class="AppGUI.RecipePage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AppGUI"
+        mc:Ignorable="d"
+        Height="720" Width="720">
+    <Grid Height="620" VerticalAlignment="Top" Margin="50,55,35,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="550*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Recipe Seeker" Height="50" Width="280" FontWeight="DemiBold" FontSize="36" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Georgia" VerticalAlignment="Top" Margin="0,-50,0,0" Foreground="White" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform x:Name="AppNameLabel" AngleY="0" AngleX="-10"/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+            <Label.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FF7D311B" Offset="1"/>
+                </LinearGradientBrush>
+            </Label.Background>
+        </Label>
+        <TabControl x:Name="RecipeTabPages" Margin="0,10,0,0" FontFamily="Georgia" Background="#FF371B0B">
+            <TabItem Header="Search" Background="#FF371B0B" Foreground="#FFD69B7D" FontSize="16">
+                <Grid x:Name="SearchRecipesButton" Background="#FFC8BCB0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="95*"/>
+                        <RowDefinition Height="485*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="505*"/>
+                        <ColumnDefinition Width="120*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="SearchMealsTextBox" Margin="10,0,24,0" VerticalAlignment="Center" Height="25" Cursor="Pen" FontSize="18" MaxLength="255" MaxLines="1" AutoWordSelection="True"/>
+                    <Button Grid.Column="1" Content="Search" VerticalAlignment="Center" Height="50" Width="90" FontWeight="SemiBold" FontSize="18"/>
+                    <ListBox VerticalAlignment="Top" Height="455" Foreground="White" FontSize="18" Margin="20,95,20,0" Grid.RowSpan="2" Grid.ColumnSpan="2" TabIndex="-1" Width="590">
+                        <ListBox.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black"/>
+                                <GradientStop Color="#FF2D170A" Offset="1"/>
+                                <GradientStop Color="#FF17100B" Offset="0.652"/>
+                            </LinearGradientBrush>
+                        </ListBox.Background>
+                        <ListBoxItem Content="jeden" VerticalAlignment="Center" HorizontalContentAlignment="Center" Background="#FF171717"/>
+                        <ListBoxItem Content="dwa" VerticalAlignment="Center" HorizontalContentAlignment="Center" Background="#FF171717"/>
+                    </ListBox>
+
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Saved" Background="#FF371B0B" Foreground="#FFD69B7D" FontSize="16">
+                <Grid Background="#FFC8BCB0"/>
+            </TabItem>
+        </TabControl>
+
+
+    </Grid>
+</Page>

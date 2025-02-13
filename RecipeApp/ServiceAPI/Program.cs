@@ -5,7 +5,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceAPI
+namespace AppMealService
 {
     internal static class Program
     {
@@ -14,12 +14,19 @@ namespace ServiceAPI
         /// </summary>
         static void Main()
         {
+            #if DEBUG
+            // Debugowanie w postaci aplikacji konsolowej
+            MealService service = new MealService();
+            service.TestRun();
+            #else
+            // Normalne uruchomienie jako usługa Windows
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
-                new Service1()
+                new MealService()
             };
             ServiceBase.Run(ServicesToRun);
+            #endif
         }
     }
 }

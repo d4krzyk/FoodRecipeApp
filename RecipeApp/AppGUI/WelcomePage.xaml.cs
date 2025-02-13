@@ -15,14 +15,19 @@ using System.Windows.Shapes;
 namespace AppGUI
 {
     /// <summary>
-    /// Logika interakcji dla klasy MainWindow.xaml
+    /// Logika interakcji dla klasy WelcomePage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class WelcomePage : Page
     {
-        public MainWindow()
+        public WelcomePage()
         {
             InitializeComponent();
-            MainFrame.Navigate(new WelcomePage());
+        }
+
+        private void onStartButton(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).MainFrame.Navigate(new RecipePage());
+            //this.Close();
         }
     }
 }

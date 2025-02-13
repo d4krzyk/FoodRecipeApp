@@ -1,6 +1,6 @@
-﻿namespace ServiceAPI
+﻿namespace AppMealService
 {
-    partial class Service1
+    partial class MealService
     {
         /// <summary> 
         /// Wymagana zmienna projektanta.
