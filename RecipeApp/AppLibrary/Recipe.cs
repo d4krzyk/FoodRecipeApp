@@ -9,27 +9,27 @@ namespace AppLibrary
     public class Recipe
     {
         [JsonPropertyName("idMeal")]
-        public string IdMeal { get; set; }
+        public string idMeal { get; set; }
 
         [JsonPropertyName("strMeal")]
-        public string Name { get; set; }
+        public string name { get; set; }
 
         [JsonPropertyName("strCategory")]
-        public string Category { get; set; }
+        public string category { get; set; }
 
         [JsonPropertyName("strArea")]
-        public string Area { get; set; }
+        public string area { get; set; }
 
         [JsonPropertyName("strInstructions")]
-        public string Instructions { get; set; }
+        public string instructions { get; set; }
 
         [JsonPropertyName("strMealThumb")]
-        public string ImageUrl { get; set; }
+        public string imageUrl { get; set; }
 
         [JsonPropertyName("strYoutube")]
-        public string YoutubeUrl { get; set; }
+        public string youtubeUrl { get; set; }
 
         [JsonPropertyName("strSource")]
-        public string SourceUrl { get; set; }
+        public string sourceUrl { get; set; }
     }
 }
