@@ -41,8 +41,8 @@
                         <ColumnDefinition Width="505*"/>
                         <ColumnDefinition Width="120*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="SearchMealsTextBox" Margin="10,0,24,0" VerticalAlignment="Center" Height="25" Cursor="Pen" FontSize="18" MaxLength="255" MaxLines="1" AutoWordSelection="True"/>
-                    <Button Grid.Column="1" Content="Search" VerticalAlignment="Center" Height="50" Width="90" FontWeight="SemiBold" FontSize="18"/>
+                    <TextBox x:Name="SearchMealsTextBox" Margin="10,0,24,0" VerticalAlignment="Center" Height="25" Cursor="Pen" FontSize="18" MaxLength="255" MaxLines="1" AutoWordSelection="True" TextChanged="onSearchTextChanged"/>
+                    <Button Grid.Column="1" Content="Search" VerticalAlignment="Center" Height="50" Width="90" FontWeight="SemiBold" FontSize="18" Click="onSearchClicked"/>
                     <ListBox VerticalAlignment="Top" Height="455" Foreground="White" FontSize="18" Margin="20,95,20,0" Grid.RowSpan="2" Grid.ColumnSpan="2" TabIndex="-1" Width="590">
                         <ListBox.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

@@ -20,9 +20,21 @@ namespace AppGUI
     /// </summary>
     public partial class RecipePage : Page
     {
+        protected string searchQuery = "";
         public RecipePage()
         {
             InitializeComponent();
+        }
+
+        private void onSearchTextChanged(object sender, TextChangedEventArgs e)
+        {
+            searchQuery = SearchMealsTextBox.Text;
+            Console.WriteLine(searchQuery);
+        }
+
+        private void onSearchClicked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
