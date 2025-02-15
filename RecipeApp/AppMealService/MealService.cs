@@ -12,7 +12,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Timers;
-using AppLibrary;
+using MealsLibrary1;
+
 namespace AppMealService
 {
     public partial class MealService : ServiceBase

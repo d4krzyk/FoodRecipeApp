@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AppGUI.ServiceRef1;
 
 namespace AppGUI
 {
@@ -21,6 +22,7 @@ namespace AppGUI
     public partial class RecipePage : Page
     {
         protected string searchQuery = "";
+        List<Recipe> recipes = new List<Recipe>();
         public RecipePage()
         {
             InitializeComponent();
@@ -34,7 +36,27 @@ namespace AppGUI
 
         private void onSearchClicked(object sender, RoutedEventArgs e)
         {
+            RecipeLibraryClient client = new RecipeLibraryClient();
+            Console.WriteLine($"Długość nazwy: {searchQuery.Length}");
+            Recipe[] results = client.FetchMealsData(searchQuery);
+            recipes = results.ToList();
+            //foreach (string result in results)
+            //{
+            //     Console.WriteLine(result);
+            //}
+            client.Close();
+            DisplayResults(recipes);
+        }
+        private void DisplayResults(List<Recipe> recipes)
+        {
 
+            MealsListBox.Items.Clear();
+            Style itemStyle = new Style(typeof(ListBoxItem));
+            itemStyle.Setters.Add(new Setter(ListBoxItem.VerticalContentAlignmentProperty, VerticalAlignment.Center));
+            itemStyle.Setters.Add(new Setter(ListBoxItem.HorizontalContentAlignmentProperty, HorizontalAlignment.Center));
+            itemStyle.Setters.Add(new Setter(ListBoxItem.BackgroundProperty, new SolidColorBrush(Color.FromRgb(22, 22, 22))));
+            MealsListBox.ItemContainerStyle = itemStyle;
+            recipes.ForEach(recipe => { MealsListBox.Items.Add(recipe.name); });
         }
     }
 }

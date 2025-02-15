@@ -1,4 +1,4 @@
-﻿using AppLibrary;
+﻿using MealsLibrary1;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,18 +18,19 @@ namespace AppMealService
         {
 #if DEBUG
             // Debugowanie w postaci aplikacji konsolowej
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[]
-            {
-                new MealService()
-            };
-            ServiceBase.Run(ServicesToRun);
-            using (ServiceHost host = new ServiceHost(typeof(RecipeLibrary)))
-            {
-                host.Open();
-                Console.WriteLine("Usługa uruchomiona. Naciśnij [Enter], aby zakończyć...");
-                Console.ReadLine();
-            }
+            //ServiceBase[] ServicesToRun;
+            //ServicesToRun = new ServiceBase[]
+            //{
+            //    new MealService()
+            //};
+            //ServiceBase.Run(ServicesToRun);
+            //using (ServiceHost host = new ServiceHost(typeof(RecipeLibrary)))
+            //{
+            //    host.Open();
+            //    Console.WriteLine("Usługa uruchomiona. Naciśnij [Enter], aby zakończyć...");
+            //    Console.ReadLine();
+            //    host.Close();
+            //}
             
 #else
             // Normalne uruchomienie jako usługa Windows
@@ -45,6 +46,7 @@ namespace AppMealService
                 host.Open();
                 Console.WriteLine("Usługa uruchomiona. Naciśnij [Enter], aby zakończyć...");
                 Console.ReadLine();
+                //host.Close();
             }
 #endif
         }

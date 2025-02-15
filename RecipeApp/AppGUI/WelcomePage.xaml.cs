@@ -1,5 +1,4 @@
-﻿using AppMealService;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,9 +21,11 @@ namespace AppGUI
     public partial class WelcomePage : Page
     {
         ServiceController controller1 = new ServiceController("RecipeApp-Service");
+
         public WelcomePage()
         {
             InitializeComponent();
+            
         }
 
 
@@ -32,9 +33,17 @@ namespace AppGUI
         {
             try
             {
+                controller1.Refresh();
+                if (controller1.Status == ServiceControllerStatus.Running)
+                {
+                    controller1.Stop();
+                    controller1.WaitForStatus(ServiceControllerStatus.Stopped);
+                }   
                 controller1.Start();
                 controller1.WaitForStatus(ServiceControllerStatus.Running);
+
                 ((MainWindow)Application.Current.MainWindow).MainFrame.Navigate(new RecipePage());
+
             }
             catch (Exception ex)
             {

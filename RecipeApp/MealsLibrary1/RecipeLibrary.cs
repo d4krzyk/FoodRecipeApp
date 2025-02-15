@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace AppLibrary
+namespace MealsLibrary1
 {
     public class RecipeLibrary : IRecipeLibrary
     {
@@ -63,10 +63,6 @@ namespace AppLibrary
             try
             {
                 string typesearch = "s";
-                if (meal.Length == 1)
-                {
-                    typesearch = "f";
-                }
                 string apiUrl = $"https://www.themealdb.com/api/json/v1/1/search.php?{typesearch}={meal}";
                 HttpResponseMessage response = httpClient.GetAsync(apiUrl).Result;
 
@@ -74,7 +70,7 @@ namespace AppLibrary
                 {
                     string jsonResult = response.Content.ReadAsStringAsync().Result;
                     recipes = ExtractRecipes(jsonResult);
-                    
+
 
                     //foreach (var recipe in recipes)
                     //{
