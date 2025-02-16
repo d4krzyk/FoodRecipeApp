@@ -32,6 +32,7 @@ namespace AppGUI
             RecipeLibraryClient client = new RecipeLibraryClient();
             Recipe[] allSavedMeals_temp = client.GetAllSavedRecipes();
             savedRecipes = allSavedMeals_temp.ToList();
+            DisplayResults(savedRecipes, SavedMealsListBox);
 
         }
         public RecipePage(List<Recipe> recipes)
@@ -41,7 +42,8 @@ namespace AppGUI
             RecipeLibraryClient client = new RecipeLibraryClient();
             Recipe[] allSavedMeals_temp = client.GetAllSavedRecipes();
             savedRecipes = allSavedMeals_temp.ToList();
-            DisplayResults(recipes);
+            DisplayResults(savedRecipes, SavedMealsListBox);
+            DisplayResults(recipes, MealsListBox);
         }
         private bool isSaved(Recipe recipe)
         {
@@ -54,26 +56,26 @@ namespace AppGUI
             Console.WriteLine(searchQuery);
         }
 
-        private void onSearchClicked(object sender, RoutedEventArgs e)
+        private async void onSearchClicked(object sender, RoutedEventArgs e)
         {
             RecipeLibraryClient client = new RecipeLibraryClient();
             //Console.WriteLine($"Długość nazwy: {searchQuery.Length}");
-            Recipe[] results = client.FetchMealsData(searchQuery);
+            Recipe[] results = await Task.Run(() => client.FetchMealsData(searchQuery));
             recipes = results.ToList();
 
             client.Close();
-            DisplayResults(recipes);
+            DisplayResults(recipes,MealsListBox);
         }
-        private void DisplayResults(List<Recipe> recipes)
+        private void DisplayResults(List<Recipe> recipes, ListBox listbox)
         {
 
-            MealsListBox.Items.Clear();
+            listbox.Items.Clear();
             Style itemStyle = new Style(typeof(ListBoxItem));
             itemStyle.Setters.Add(new Setter(ListBoxItem.VerticalContentAlignmentProperty, VerticalAlignment.Center));
             itemStyle.Setters.Add(new Setter(ListBoxItem.HorizontalContentAlignmentProperty, HorizontalAlignment.Center));
             itemStyle.Setters.Add(new Setter(ListBoxItem.BackgroundProperty, new SolidColorBrush(Color.FromRgb(22, 22, 22))));
-            MealsListBox.ItemContainerStyle = itemStyle;
-            recipes.ForEach(recipe => { MealsListBox.Items.Add(recipe.name); });
+            listbox.ItemContainerStyle = itemStyle;
+            recipes.ForEach(recipe => { listbox.Items.Add(recipe.name); });
         }
 
         private void onMealsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -83,6 +85,22 @@ namespace AppGUI
                 // Pobierz wybrany przepis
                 string selectedRecipeName = MealsListBox.SelectedItem.ToString();
                 Recipe selectedRecipe = recipes.FirstOrDefault(r => r.name == selectedRecipeName);
+
+                if (selectedRecipe != null)
+                {
+                    // Przejdź do nowej strony z identyfikatorem przepisu
+                    ((MainWindow)Application.Current.MainWindow).MainFrame.Navigate(new RecipeDetailPage(selectedRecipe, recipes, isSaved(selectedRecipe)));
+                }
+            }
+        }
+
+        private void onSavedMealsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SavedMealsListBox.SelectedItem != null)
+            {
+                // Pobierz wybrany przepis
+                string selectedRecipeName = SavedMealsListBox.SelectedItem.ToString();
+                Recipe selectedRecipe = savedRecipes.FirstOrDefault(r => r.name == selectedRecipeName);
 
                 if (selectedRecipe != null)
                 {

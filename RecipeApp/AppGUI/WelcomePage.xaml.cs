@@ -29,19 +29,21 @@ namespace AppGUI
         }
 
 
-        private void onStartButton(object sender, RoutedEventArgs e)
+        private async void onStartButton(object sender, RoutedEventArgs e)
         {
             try
             {
-                controller1.Refresh();
-                if (controller1.Status == ServiceControllerStatus.Running)
+                await Task.Run(() =>
                 {
-                    controller1.Stop();
-                    controller1.WaitForStatus(ServiceControllerStatus.Stopped);
-                }   
-                controller1.Start();
-                controller1.WaitForStatus(ServiceControllerStatus.Running);
-
+                    controller1.Refresh();
+                    if (controller1.Status == ServiceControllerStatus.Running)
+                    {
+                        controller1.Stop();
+                        controller1.WaitForStatus(ServiceControllerStatus.Stopped);
+                    }
+                    controller1.Start();
+                    controller1.WaitForStatus(ServiceControllerStatus.Running);
+                });
                 ((MainWindow)Application.Current.MainWindow).MainFrame.Navigate(new RecipePage());
 
             }

@@ -8,8 +8,9 @@
         Height="720" Width="720">
     <Grid Height="620" VerticalAlignment="Top" Margin="50,55,35,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="550*"/>
-            <RowDefinition Height="7*"/>
+            <RowDefinition Height="57*"/>
+            <RowDefinition Height="249*"/>
+            <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -30,7 +31,7 @@
                 </LinearGradientBrush>
             </Label.Background>
         </Label>
-        <TabControl x:Name="RecipeTabPages" Margin="0,5,0,0" FontFamily="Georgia" Background="#FF371B0B">
+        <TabControl x:Name="RecipeTabPages" Margin="0,5,0,0" FontFamily="Georgia" Background="#FF371B0B" Grid.RowSpan="2">
             <TabItem Header="Search" Background="#FF371B0B" Foreground="#FFD69B7D" FontSize="16" Margin="0,0,0,0">
                 <Grid x:Name="SearchRecipesButton" Background="#FFC8BCB0">
                     <Grid.RowDefinitions>
@@ -57,7 +58,37 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Saved" Background="#FF371B0B" Foreground="#FFD69B7D" FontSize="16" Margin="0,0,0,0" VerticalContentAlignment="Stretch">
-                <Grid Background="#FFC8BCB0"/>
+                <Grid x:Name="SavedRecipesGrid" Background="#FFC8BCB0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="72*"/>
+                        <RowDefinition Height="505*"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="SavedMealsLabel" Content="Saved Recipes" Width="210" FontWeight="DemiBold" FontSize="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Georgia" Foreground="White" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="205,0,0,19" Height="38">
+                        <Label.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform x:Name="AppNameLabel1" AngleY="0" AngleX="-10"/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Label.RenderTransform>
+                        <Label.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black"/>
+                                <GradientStop Color="#FF7D311B" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Label.Background>
+                    </Label>
+                    <ListBox x:Name="SavedMealsListBox" VerticalAlignment="Top" Height="455" Foreground="White" FontSize="18" Margin="20,23,19,0" TabIndex="-1" Width="590" SelectionChanged="onSavedMealsListBox_SelectionChanged" Grid.Row="1">
+                        <ListBox.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black"/>
+                                <GradientStop Color="#FF2D170A" Offset="1"/>
+                                <GradientStop Color="#FF17100B" Offset="0.652"/>
+                            </LinearGradientBrush>
+                        </ListBox.Background>
+                    </ListBox>
+                </Grid>
             </TabItem>
         </TabControl>
 
