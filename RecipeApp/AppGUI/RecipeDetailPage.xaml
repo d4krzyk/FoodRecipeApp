@@ -1,0 +1,121 @@
+﻿<Page x:Class="AppGUI.RecipeDetailPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AppGUI"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="720"
+      Title="RecipeDetailPage">
+
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black"/>
+                <GradientStop Color="#FF251607" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="145*"/>
+            <RowDefinition Height="129*"/>
+            <RowDefinition Height="239*"/>
+            <RowDefinition Height="98*"/>
+            <RowDefinition Height="109*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="269*"/>
+            <ColumnDefinition Width="276*"/>
+            <ColumnDefinition Width="255*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="InstructionTextBox" Margin="20,20,20,20" Grid.Row="2" TextWrapping="Wrap" Grid.ColumnSpan="2" VerticalContentAlignment="Center" SelectionBrush="#FF949494" BorderBrush="#FF1D0C0C" FontSize="13" FontFamily="Georgia" FontWeight="DemiBold" IsReadOnly="True" Grid.RowSpan="3" Padding="5,5,5,5">
+            <TextBox.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFCECDCD"/>
+                    <GradientStop Color="#FF79736D" Offset="1"/>
+                    <GradientStop Color="#FFD6C8B7" Offset="0.809"/>
+                </LinearGradientBrush>
+            </TextBox.Background>
+            <TextBox.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF100A0A"/>
+                    <GradientStop Color="#FF171616" Offset="1"/>
+                </LinearGradientBrush>
+            </TextBox.Foreground>
+        </TextBox>
+        <Image x:Name="ThumbImageBox" Grid.Column="2" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200" Stretch="Fill" Margin="10,10,0,0" Grid.Row="2"/>
+        <Button x:Name="BackButton" Grid.Column="2" Content="Back" Margin="26,10,20,20" Grid.Row="4" FontSize="24" FontWeight="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="onBackButtonClicked"/>
+        <Button x:Name="DelSaveRecipeButton" Grid.Column="2" Content="X" HorizontalAlignment="Left" Margin="26,234,0,3" Grid.Row="2" Width="80" Foreground="#FFC51E1E" IsEnabled="False" Padding="0,0,0,0" VerticalContentAlignment="Stretch" FontSize="36" Grid.RowSpan="2" Height="80">
+            <Button.Background>
+                <RadialGradientBrush RadiusX="0.5" RadiusY="0.5">
+                    <GradientStop Color="#0023130A" Offset="0.987"/>
+                    <GradientStop Color="#FFF1F1F1" Offset="0.056"/>
+                    <GradientStop Color="#FF777373" Offset="0.848"/>
+                </RadialGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="AddSaveRecipeButton" Grid.Column="2" Content="★" HorizontalAlignment="Left" Margin="120,0,0,7" Grid.Row="3" Width="80" IsEnabled="False" Padding="0,0,0,0" VerticalContentAlignment="Stretch" FontSize="48" Height="80">
+            <Button.Foreground>
+                <RadialGradientBrush Center="0.35,0.5">
+                    <GradientStop Color="#FFAF7724" Offset="1"/>
+                    <GradientStop Color="#FFDCCD27" Offset="0"/>
+                    <GradientStop Color="#FFCAAB25" Offset="0.429"/>
+                </RadialGradientBrush>
+            </Button.Foreground>
+            <Button.Background>
+                <RadialGradientBrush RadiusX="0.5" RadiusY="0.5">
+                    <GradientStop Color="#00EDEDED" Offset="0.987"/>
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="#FF777373" Offset="0.802"/>
+                </RadialGradientBrush>
+            </Button.Background>
+        </Button>
+        <TextBox x:Name="MealNameLabel" HorizontalAlignment="Center" VerticalContentAlignment="Center"  VerticalAlignment="Top" Grid.ColumnSpan="2" Height="100" Width="450" FontWeight="UltraBold" FontFamily="Georgia" FontSize="30" TextWrapping="Wrap" IsEnabled="False" Padding="5,5,5,5" Background="{x:Null}" SelectionBrush="{x:Null}" HorizontalContentAlignment="Center" SelectionOpacity="1" AllowDrop="False" Focusable="False" IsHitTestVisible="False" BorderBrush="{x:Null}" Margin="0,48,0,0" Grid.RowSpan="2">
+            <TextBox.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFBBADA2" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </TextBox.Foreground>
+            <TextBlock.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFD6C9BF" Offset="0.007"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </TextBlock.Foreground>
+        </TextBox>
+        <TextBlock x:Name="CategoryMealTextBox" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Category: " VerticalAlignment="Center" Height="74" Width="210" Foreground="White" FontSize="22" FontFamily="Georgia" FontWeight="Medium" IsEnabled="False" Padding="10,10,10,10">
+            <TextBlock.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF170403"/>
+                    <GradientStop Color="#FF4A2D09" Offset="1"/>
+                    <GradientStop Color="#FFA58966" Offset="0.554"/>
+                </LinearGradientBrush>
+            </TextBlock.Background>
+        </TextBlock>
+        <TextBlock x:Name="AreaMealTextBox" HorizontalAlignment="Left" Margin="13,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Height="74" Width="210" Foreground="White" FontSize="22" FontFamily="Georgia" FontWeight="Medium" IsEnabled="False" Padding="10,10,10,10" Grid.Column="1">
+            <TextBlock.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF170403"/>
+                    <GradientStop Color="#FF4A2D09" Offset="1"/>
+                    <GradientStop Color="#FFA58966" Offset="0.554"/>
+                </LinearGradientBrush>
+            </TextBlock.Background><Run Language="pl-pl" Text="Area"/><Run Text=": "/></TextBlock>
+        <Button x:Name="YoutubeLinkButton" Grid.Column="2" Content="Youtube Link" HorizontalAlignment="Center" VerticalAlignment="Center" Height="74" Width="184" Click="onYoutubeLinkClicked" Grid.Row="1" FontSize="24" Padding="5,5,5,5" Margin="5,10,5,10">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFC12E2E"/>
+                    <GradientStop Color="#FF4E2519" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="SourceLinkButton" Grid.Column="2" Content="Source Link" HorizontalAlignment="Center" Margin="5,50,5,5" VerticalAlignment="Center" Height="69" Width="186" FontSize="24" Padding="5,5,5,5" Click="onSourceLinkClicked">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FF5F534F" Offset="1"/>
+                    <GradientStop Color="#FF7D7877" Offset="0.446"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+    </Grid>
+</Page>

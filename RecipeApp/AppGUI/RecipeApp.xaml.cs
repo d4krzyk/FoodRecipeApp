@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AppGUI.ServiceRef1;
 
+
 namespace AppGUI
 {
     /// <summary>
@@ -26,6 +27,13 @@ namespace AppGUI
         public RecipePage()
         {
             InitializeComponent();
+            
+        }
+        public RecipePage(List<Recipe> recipes)
+        {
+            InitializeComponent();
+            this.recipes = recipes;
+            DisplayResults(recipes);
         }
 
         private void onSearchTextChanged(object sender, TextChangedEventArgs e)
@@ -37,7 +45,7 @@ namespace AppGUI
         private void onSearchClicked(object sender, RoutedEventArgs e)
         {
             RecipeLibraryClient client = new RecipeLibraryClient();
-            Console.WriteLine($"Długość nazwy: {searchQuery.Length}");
+            //Console.WriteLine($"Długość nazwy: {searchQuery.Length}");
             Recipe[] results = client.FetchMealsData(searchQuery);
             recipes = results.ToList();
             //foreach (string result in results)
@@ -57,6 +65,22 @@ namespace AppGUI
             itemStyle.Setters.Add(new Setter(ListBoxItem.BackgroundProperty, new SolidColorBrush(Color.FromRgb(22, 22, 22))));
             MealsListBox.ItemContainerStyle = itemStyle;
             recipes.ForEach(recipe => { MealsListBox.Items.Add(recipe.name); });
+        }
+
+        private void onMealsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (MealsListBox.SelectedItem != null)
+            {
+                // Pobierz wybrany przepis
+                string selectedRecipeName = MealsListBox.SelectedItem.ToString();
+                Recipe selectedRecipe = recipes.FirstOrDefault(r => r.name == selectedRecipeName);
+
+                if (selectedRecipe != null)
+                {
+                    // Przejdź do nowej strony z identyfikatorem przepisu
+                    ((MainWindow)Application.Current.MainWindow).MainFrame.Navigate(new RecipeDetailPage(selectedRecipe, recipes));
+                }
+            }
         }
     }
 }
