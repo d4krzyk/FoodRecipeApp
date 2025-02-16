@@ -13,5 +13,14 @@ namespace MealsLibrary1
         [OperationContract]
         List<Recipe> FetchMealsData(string meal);
 
+        [OperationContract]
+        void AddMealToSaved(Recipe recipe);
+
+        [OperationContract]
+        void RemoveMealFromSaved(string idMeal);
+
+        [OperationContract]
+        List<Recipe> GetAllSavedRecipes();
+
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="9.1" CheckSum="sWdBwsxJclA1U1OfoF2c5XuTlqeNbma0/GdDM85CrNU=">
+<SavedWcfConfigurationInformation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="9.1" CheckSum="EkcMm6u9Jcjx41vD/Yd/eA1JDSEST+F5GnjROMXxqoY=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="wsHttpBinding" name="WSHttpBinding_IRecipeLibrary">
       <properties>
@@ -127,7 +127,7 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="WSHttpBinding_IRecipeLibrary" contract="ServiceRef1.IRecipeLibrary" bindingType="wsHttpBinding" address="http://localhost:8000/ProjectApp/RecipeLibrary" bindingConfiguration="WSHttpBinding_IRecipeLibrary">
+    <endpoint name="WSHttpBinding_IRecipeLibrary" contract="ServiceRecipeRef.IRecipeLibrary" bindingType="wsHttpBinding" address="http://localhost:8000/ProjectApp/RecipeLibrary" bindingConfiguration="WSHttpBinding_IRecipeLibrary">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>http://localhost:8000/ProjectApp/RecipeLibrary</serializedValue>
@@ -142,7 +142,7 @@
           <serializedValue>WSHttpBinding_IRecipeLibrary</serializedValue>
         </property>
         <property path="/contract" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>ServiceRef1.IRecipeLibrary</serializedValue>
+          <serializedValue>ServiceRecipeRef.IRecipeLibrary</serializedValue>
         </property>
         <property path="/headers" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.AddressHeaderCollectionElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.AddressHeaderCollectionElement</serializedValue>

@@ -12,7 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using AppGUI.ServiceRef1;
+using AppGUI.ServiceRecipeRef;
+using MealsLibrary1;
 
 
 namespace AppGUI
@@ -24,16 +25,27 @@ namespace AppGUI
     {
         protected string searchQuery = "";
         List<Recipe> recipes = new List<Recipe>();
+        List<Recipe> savedRecipes = new List<Recipe>();
         public RecipePage()
         {
             InitializeComponent();
-            
+            RecipeLibraryClient client = new RecipeLibraryClient();
+            Recipe[] allSavedMeals_temp = client.GetAllSavedRecipes();
+            savedRecipes = allSavedMeals_temp.ToList();
+
         }
         public RecipePage(List<Recipe> recipes)
         {
             InitializeComponent();
             this.recipes = recipes;
+            RecipeLibraryClient client = new RecipeLibraryClient();
+            Recipe[] allSavedMeals_temp = client.GetAllSavedRecipes();
+            savedRecipes = allSavedMeals_temp.ToList();
             DisplayResults(recipes);
+        }
+        private bool isSaved(Recipe recipe)
+        {
+            return savedRecipes.Any(r => r.idMeal == recipe.idMeal);
         }
 
         private void onSearchTextChanged(object sender, TextChangedEventArgs e)
@@ -48,10 +60,7 @@ namespace AppGUI
             //Console.WriteLine($"Długość nazwy: {searchQuery.Length}");
             Recipe[] results = client.FetchMealsData(searchQuery);
             recipes = results.ToList();
-            //foreach (string result in results)
-            //{
-            //     Console.WriteLine(result);
-            //}
+
             client.Close();
             DisplayResults(recipes);
         }
@@ -78,7 +87,7 @@ namespace AppGUI
                 if (selectedRecipe != null)
                 {
                     // Przejdź do nowej strony z identyfikatorem przepisu
-                    ((MainWindow)Application.Current.MainWindow).MainFrame.Navigate(new RecipeDetailPage(selectedRecipe, recipes));
+                    ((MainWindow)Application.Current.MainWindow).MainFrame.Navigate(new RecipeDetailPage(selectedRecipe, recipes, isSaved(selectedRecipe)));
                 }
             }
         }

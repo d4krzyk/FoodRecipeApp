@@ -44,7 +44,7 @@
         </TextBox>
         <Image x:Name="ThumbImageBox" Grid.Column="2" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200" Stretch="Fill" Margin="10,10,0,0" Grid.Row="2"/>
         <Button x:Name="BackButton" Grid.Column="2" Content="Back" Margin="26,10,20,20" Grid.Row="4" FontSize="24" FontWeight="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="onBackButtonClicked"/>
-        <Button x:Name="DelSaveRecipeButton" Grid.Column="2" Content="X" HorizontalAlignment="Left" Margin="26,234,0,3" Grid.Row="2" Width="80" Foreground="#FFC51E1E" IsEnabled="False" Padding="0,0,0,0" VerticalContentAlignment="Stretch" FontSize="36" Grid.RowSpan="2" Height="80">
+        <Button x:Name="DelSaveRecipeButton" Grid.Column="2" Content="X" HorizontalAlignment="Left" Margin="26,234,0,3" Grid.Row="2" Width="80" Foreground="#FFC51E1E" Padding="0,0,0,0" VerticalContentAlignment="Center" FontSize="36" Grid.RowSpan="2" Height="80" Click="onDelSaveRecipeButtonClicked">
             <Button.Background>
                 <RadialGradientBrush RadiusX="0.5" RadiusY="0.5">
                     <GradientStop Color="#0023130A" Offset="0.987"/>
@@ -52,8 +52,10 @@
                     <GradientStop Color="#FF777373" Offset="0.848"/>
                 </RadialGradientBrush>
             </Button.Background>
+            
+
         </Button>
-        <Button x:Name="AddSaveRecipeButton" Grid.Column="2" Content="★" HorizontalAlignment="Left" Margin="120,0,0,7" Grid.Row="3" Width="80" IsEnabled="False" Padding="0,0,0,0" VerticalContentAlignment="Stretch" FontSize="48" Height="80">
+        <Button x:Name="AddSaveRecipeButton" Grid.Column="2" Content="★" HorizontalAlignment="Left" Margin="120,0,0,7" Grid.Row="3" Width="80" Padding="0,0,0,0" VerticalContentAlignment="Stretch" FontSize="48" Height="80" Click="onAddSaveRecipeButtonClicked">
             <Button.Foreground>
                 <RadialGradientBrush Center="0.35,0.5">
                     <GradientStop Color="#FFAF7724" Offset="1"/>

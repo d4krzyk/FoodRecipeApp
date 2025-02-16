@@ -1,4 +1,5 @@
-﻿using AppGUI.ServiceRef1;
+﻿using AppGUI.ServiceRecipeRef;
+using MealsLibrary1;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,16 +25,63 @@ namespace AppGUI
     {
         private Recipe selectedRecipe;
         private List<Recipe> recipes;
-        public RecipeDetailPage(Recipe recipe, List<Recipe> recipes)
+        private bool isSaved = false;
+        public RecipeDetailPage(Recipe recipe, List<Recipe> recipes, bool isSaved)
         {
             InitializeComponent();
-            selectedRecipe = recipe;
+            this.selectedRecipe = recipe;
             this.recipes = recipes;
+            this.isSaved = isSaved;
             DisplayRecipeDetails();
+            DisplaySaveOptions();
+        }
+        private void SetStyleButton(Button button,bool isAdd, bool isActive)
+        {
+            if(!isActive)
+            {
+                RadialGradientBrush brush = new RadialGradientBrush();
+                brush.GradientStops.Add(new GradientStop(Colors.Transparent, 0.987));
+                brush.GradientStops.Add(new GradientStop(Colors.White, 0.056));
+                brush.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#FF212121"), 0.848));
+                button.Background = brush;
+                button.Foreground = new SolidColorBrush(Colors.White);
+                button.Opacity = 0.3;
+                button.IsEnabled = false;
+            }
+            else
+            {
+                RadialGradientBrush brush = new RadialGradientBrush();
+                brush.GradientStops.Add(new GradientStop(Colors.Transparent, 0.987));
+                brush.GradientStops.Add(new GradientStop(Colors.White, 0.056));
+                brush.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#FF777373"), 0.848));
+                button.Background = brush;
+                if(isAdd)
+                {
+                    RadialGradientBrush brushFront = new RadialGradientBrush();
+                    brushFront.Center = new Point(0.35, 0.5);
+                    brushFront.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#FFAF7724"), 1));
+                    brushFront.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#FFDCCD27"), 0));
+                    brushFront.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#FFCAAB25"), 0.429));
+                    button.Foreground = brushFront;
+                }
+                else
+                {
+                    button.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFC51E1E"));
+                }
+                button.Opacity = 1;
+                button.IsEnabled = true;
+            }
+            
+        }
+        private void DisplaySaveOptions()
+        {
+            SetStyleButton(AddSaveRecipeButton, true, !isSaved);
+            SetStyleButton(DelSaveRecipeButton, false, isSaved);
         }
         private void DisplayRecipeDetails()
         {
             //Console.WriteLine(selectedRecipe.instructions);
+            
             InstructionTextBox.Text = selectedRecipe.instructions;
             MealNameLabel.Text = selectedRecipe.name;
             CategoryMealTextBox.Text = "Category: \n" + selectedRecipe.category;
@@ -73,6 +121,31 @@ namespace AppGUI
         private void onBackButtonClicked(object sender, RoutedEventArgs e)
         {
             ((MainWindow)Application.Current.MainWindow).MainFrame.Navigate(new RecipePage(recipes));
+        }
+
+        private async void onDelSaveRecipeButtonClicked(object sender, RoutedEventArgs e)
+        {
+            if (DelSaveRecipeButton.IsEnabled)
+            {
+                SetStyleButton(DelSaveRecipeButton, false, false);
+                RecipeLibraryClient client = new RecipeLibraryClient();
+                await Task.Run(() => client.RemoveMealFromSaved(selectedRecipe.idMeal));
+                client.Close();
+                SetStyleButton(AddSaveRecipeButton, true, true);
+
+            }
+        }
+
+        private async void onAddSaveRecipeButtonClicked(object sender, RoutedEventArgs e)
+        {
+            if (AddSaveRecipeButton.IsEnabled)
+            {
+                SetStyleButton(AddSaveRecipeButton, true, false);
+                RecipeLibraryClient client = new RecipeLibraryClient();
+                await Task.Run(() => client.AddMealToSaved(selectedRecipe));
+                client.Close();
+                SetStyleButton(DelSaveRecipeButton, false, true);
+            }
         }
     }
 }

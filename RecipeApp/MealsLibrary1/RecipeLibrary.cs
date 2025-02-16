@@ -12,44 +12,98 @@ namespace MealsLibrary1
     public class RecipeLibrary : IRecipeLibrary
     {
         private List<Recipe> _savedRecipes = new List<Recipe>();
-        private List<Recipe> _recipes = new List<Recipe>();
-        private readonly string _filePath = "cacheLib/meals.json"; // Plik, w którym zapisujesz wyniki
+        private static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        private static readonly string _filePath = Path.Combine(AppDirectory, "cacheLib", "saved-meals.json");
         private HttpClient httpClient;
         public RecipeLibrary()
         {
+            Console.WriteLine($"AppDirectory: {AppDirectory}");
+            // Upewnij się, że katalog istnieje
+            string directoryPath = Path.GetDirectoryName(_filePath);
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
             LoadFromFile();
             httpClient = new HttpClient();
         }
 
         private void LoadFromFile()
         {
-            if (File.Exists(_filePath))
+            try
             {
-                string json = File.ReadAllText(_filePath);
-                _savedRecipes = JsonSerializer.Deserialize<List<Recipe>>(json) ?? new List<Recipe>();
+                if (File.Exists(_filePath))
+                {
+                    string json = File.ReadAllText(_filePath);
+                    _savedRecipes = JsonSerializer.Deserialize<List<Recipe>>(json) ?? new List<Recipe>();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Logowanie błędu
+                Console.WriteLine($"Błąd podczas ładowania pliku: {ex.Message}");
+                throw;
             }
         }
 
         public void SaveToFile()
         {
-            string json = JsonSerializer.Serialize(_savedRecipes, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(_filePath, json);
-        }
-
-        public void AddMeal(Recipe recipe)
-        {
-            if (!_recipes.Any(m => m.idMeal == recipe.idMeal)) // Unikamy duplikatów
+            try
             {
-                _recipes.Add(recipe);
-                SaveToFile();
+                // Upewnij się, że katalog istnieje
+                string directoryPath = Path.GetDirectoryName(_filePath);
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
+                // Zapisz plik
+                string json = JsonSerializer.Serialize(_savedRecipes, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(_filePath, json);
+            }
+            catch (Exception ex)
+            {
+                // Logowanie błędu
+                Console.WriteLine($"Błąd podczas zapisywania pliku: {ex.Message}");
+                throw;
             }
         }
 
-        public Recipe GetMealById(string idMeal)
+        public void AddMealToSaved(Recipe recipe)
         {
-            return _recipes.FirstOrDefault(m => m.idMeal == idMeal);
+            try
+            {
+                if (!_savedRecipes.Any(m => m.idMeal == recipe.idMeal)) // Unikamy duplikatów
+                {
+                    _savedRecipes.Add(recipe);
+                    SaveToFile();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Logowanie błędu
+                Console.WriteLine($"Błąd podczas dodawania przepisu: {ex.Message}");
+                throw;
+            }
         }
-
+        public void RemoveMealFromSaved(string idMeal)
+        {
+            try
+            {
+                Recipe recipeToRemove = _savedRecipes.FirstOrDefault(m => m.idMeal == idMeal);
+                if (recipeToRemove != null)
+                {
+                    _savedRecipes.Remove(recipeToRemove);
+                    SaveToFile();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Logowanie błędu
+                Console.WriteLine($"Błąd podczas usuwania przepisu: {ex.Message}");
+                throw;
+            }
+        }
         public List<Recipe> GetAllSavedRecipes()
         {
             LoadFromFile();
@@ -58,7 +112,6 @@ namespace MealsLibrary1
 
         public List<Recipe> FetchMealsData(string meal)
         {
-            List<string> mealNames;
             List<Recipe> recipes;
             try
             {
@@ -70,22 +123,6 @@ namespace MealsLibrary1
                 {
                     string jsonResult = response.Content.ReadAsStringAsync().Result;
                     recipes = ExtractRecipes(jsonResult);
-
-
-                    //foreach (var recipe in recipes)
-                    //{
-                    //    if (!_recipes.Any(m => m.idMeal == recipe.idMeal))
-                    //    {
-                    //        _recipes.Add(recipe);
-                    //    }
-                    //}
-                    //string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{meal}.json");
-                    string formattedJson = FormatJson(jsonResult);
-                    //File.WriteAllText(filePath, formattedJson);
-
-                    //Console.WriteLine($"Zapisano dane dla potrawy: {meal}");
-                    mealNames = ExtractMealNames(jsonResult);
-                    //mealNames.ForEach(Console.WriteLine);
                     return recipes;
                 }
                 else
@@ -100,11 +137,7 @@ namespace MealsLibrary1
                 return null;
             }
         }
-        private string FormatJson(string json)
-        {
-            JsonDocument doc = JsonDocument.Parse(json);
-            return JsonSerializer.Serialize(doc.RootElement, new JsonSerializerOptions { WriteIndented = true });
-        }
+
         private List<Recipe> ExtractRecipes(string jsonResult)
         {
             List<Recipe> recipes = new List<Recipe>();
@@ -126,28 +159,6 @@ namespace MealsLibrary1
 
             return recipes;
         }
-        private List<string> ExtractMealNames(string jsonResult)
-        {
-            List<string> mealNames = new List<string>();
-
-            using (JsonDocument doc = JsonDocument.Parse(jsonResult))
-            {
-                JsonElement root = doc.RootElement;
-                JsonElement mealsArray = root.GetProperty("meals");
-
-                if (mealsArray.ValueKind == JsonValueKind.Array)
-                {
-                    foreach (JsonElement meal in mealsArray.EnumerateArray())
-                    {
-                        if (meal.TryGetProperty("strMeal", out JsonElement strMealElement))
-                        {
-                            mealNames.Add(strMealElement.GetString());
-                        }
-                    }
-                }
-            }
-
-            return mealNames;
-        }
+    
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="3325dd37-340b-4494-884c-6c6196af1ef0" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="0bfbdad1-1c74-4df6-bf2c-7193f3fdbd55" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,11 +22,11 @@
     <MetadataSource Address="http://localhost:8000/ProjectApp/RecipeLibrary" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="RecipeLibrary.xsd" MetadataType="Schema" ID="b9c209d7-3636-4b94-84e5-ec8cf219b805" SourceId="1" SourceUrl="http://localhost:8000/ProjectApp/RecipeLibrary?xsd=xsd0" />
-    <MetadataFile FileName="RecipeLibrary.disco" MetadataType="Disco" ID="320f0ca8-21be-4bd9-b35d-05cd25f20c27" SourceId="1" SourceUrl="http://localhost:8000/ProjectApp/RecipeLibrary?disco" />
-    <MetadataFile FileName="RecipeLibrary1.xsd" MetadataType="Schema" ID="003aacc5-7c56-48ad-991e-3618d5fb5db6" SourceId="1" SourceUrl="http://localhost:8000/ProjectApp/RecipeLibrary?xsd=xsd2" />
-    <MetadataFile FileName="RecipeLibrary2.xsd" MetadataType="Schema" ID="43a45387-eeb6-4221-b295-17aecfa6c8bc" SourceId="1" SourceUrl="http://localhost:8000/ProjectApp/RecipeLibrary?xsd=xsd1" />
-    <MetadataFile FileName="RecipeLibrary.wsdl" MetadataType="Wsdl" ID="12f144a9-1c49-446e-ae3f-1be12c2eab87" SourceId="1" SourceUrl="http://localhost:8000/ProjectApp/RecipeLibrary?wsdl" />
+    <MetadataFile FileName="RecipeLibrary.xsd" MetadataType="Schema" ID="5aac4921-82ea-4f8c-9fd4-de4bf47cc3ef" SourceId="1" SourceUrl="http://localhost:8000/ProjectApp/RecipeLibrary?xsd=xsd0" />
+    <MetadataFile FileName="RecipeLibrary.disco" MetadataType="Disco" ID="fe07e471-63e3-4a67-86fa-40640c7e970b" SourceId="1" SourceUrl="http://localhost:8000/ProjectApp/RecipeLibrary?disco" />
+    <MetadataFile FileName="RecipeLibrary1.xsd" MetadataType="Schema" ID="2c93fcb7-5966-4fd8-af55-8c33ac83dd58" SourceId="1" SourceUrl="http://localhost:8000/ProjectApp/RecipeLibrary?xsd=xsd2" />
+    <MetadataFile FileName="RecipeLibrary2.xsd" MetadataType="Schema" ID="8990b8bb-e86e-4a4c-a60f-8ba99c91d6c9" SourceId="1" SourceUrl="http://localhost:8000/ProjectApp/RecipeLibrary?xsd=xsd1" />
+    <MetadataFile FileName="RecipeLibrary.wsdl" MetadataType="Wsdl" ID="7fe66246-d2b6-4d68-a5e3-7426330b983c" SourceId="1" SourceUrl="http://localhost:8000/ProjectApp/RecipeLibrary?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
