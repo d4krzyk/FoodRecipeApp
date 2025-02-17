@@ -1,33 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-
+using System.Configuration;
 namespace MealsLibrary1
 {
     public class RecipeLibrary : IRecipeLibrary
     {
         private List<Recipe> _savedRecipes = new List<Recipe>();
         private static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        private static readonly string _filePath = Path.Combine(AppDirectory, "cacheLib", "saved-meals.json");
-        private HttpClient httpClient;
+        private static readonly string _filePath = Path.Combine(AppDirectory,"cacheLib","saved-meals.json");
+        private readonly HttpClient httpClient;
+        private EventLog eventLog;
+        //private readonly string apiUrl;
+        private readonly string eventLogSource;
+        private readonly string eventLogName;
+
         public RecipeLibrary()
         {
             Console.WriteLine($"AppDirectory: {AppDirectory}");
-            // Upewnij się, że katalog istnieje
             string directoryPath = Path.GetDirectoryName(_filePath);
             if (!Directory.Exists(directoryPath))
             {
                 Directory.CreateDirectory(directoryPath);
             }
+            //apiUrl = ConfigurationManager.AppSettings["ApiUrl"];
+            eventLogSource = ConfigurationManager.AppSettings["EventLogSource"];
+            eventLogName = ConfigurationManager.AppSettings["EventLogName"];
             LoadFromFile();
             httpClient = new HttpClient();
+            SetupEventLog();
         }
-
+        private void SetupEventLog()
+        {
+            if (!EventLog.SourceExists("RecipeAppSource"))
+            {
+                EventLog.CreateEventSource("RecipeAppSource", "RecipeAppLog");
+            }
+            eventLog = new EventLog
+            {
+                Source = eventLogSource,
+                Log = eventLogName
+            };
+        }
         private void LoadFromFile()
         {
             try
@@ -40,7 +60,6 @@ namespace MealsLibrary1
             }
             catch (Exception ex)
             {
-                // Logowanie błędu
                 Console.WriteLine($"Błąd podczas ładowania pliku: {ex.Message}");
                 throw;
             }
@@ -50,20 +69,19 @@ namespace MealsLibrary1
         {
             try
             {
-                // Upewnij się, że katalog istnieje
                 string directoryPath = Path.GetDirectoryName(_filePath);
                 if (!Directory.Exists(directoryPath))
                 {
                     Directory.CreateDirectory(directoryPath);
                 }
 
-                // Zapisz plik
                 string json = JsonSerializer.Serialize(_savedRecipes, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(_filePath, json);
+                eventLog.WriteEntry("Saved recipes to file.", EventLogEntryType.Information);
+
             }
             catch (Exception ex)
             {
-                // Logowanie błędu
                 Console.WriteLine($"Błąd podczas zapisywania pliku: {ex.Message}");
                 throw;
             }
@@ -77,11 +95,12 @@ namespace MealsLibrary1
                 {
                     _savedRecipes.Add(recipe);
                     SaveToFile();
+                    eventLog.WriteEntry($"Added recipe {recipe.name} to saved recipes.", EventLogEntryType.Information);
+
                 }
             }
             catch (Exception ex)
             {
-                // Logowanie błędu
                 Console.WriteLine($"Błąd podczas dodawania przepisu: {ex.Message}");
                 throw;
             }
@@ -95,11 +114,12 @@ namespace MealsLibrary1
                 {
                     _savedRecipes.Remove(recipeToRemove);
                     SaveToFile();
+                    eventLog.WriteEntry($"Removed recipe {recipeToRemove.name} from saved recipes.", EventLogEntryType.Information);
                 }
             }
             catch (Exception ex)
             {
-                // Logowanie błędu
+
                 Console.WriteLine($"Błąd podczas usuwania przepisu: {ex.Message}");
                 throw;
             }
@@ -112,28 +132,32 @@ namespace MealsLibrary1
 
         public List<Recipe> FetchMealsData(string meal)
         {
+            if (meal == null)
+            {
+                throw new ArgumentNullException(nameof(meal), "Search query cannot be null.");
+            }
             List<Recipe> recipes;
             try
             {
-                string typesearch = "s";
-                string apiUrl = $"https://www.themealdb.com/api/json/v1/1/search.php?{typesearch}={meal}";
-                HttpResponseMessage response = httpClient.GetAsync(apiUrl).Result;
+                string APIUrl = $"https://www.themealdb.com/api/json/v1/1/search.php?s={meal}";
+                HttpResponseMessage response = httpClient.GetAsync(APIUrl).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
                     string jsonResult = response.Content.ReadAsStringAsync().Result;
                     recipes = ExtractRecipes(jsonResult);
+                    eventLog.WriteEntry($"Fetched {recipes.Count} recipes for meal {meal}.", EventLogEntryType.Information);
                     return recipes;
                 }
                 else
                 {
-                    Console.WriteLine($"Błąd API: {response.StatusCode}");
+                    eventLog.WriteEntry($"API error: {response.StatusCode}", EventLogEntryType.Error);
                     return null;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Błąd: {ex.Message}");
+                eventLog.WriteEntry($"Error: {ex.Message}", EventLogEntryType.Error);
                 return null;
             }
         }

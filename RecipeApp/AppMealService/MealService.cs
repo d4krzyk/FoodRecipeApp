@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
 using System.ServiceModel;
 using System.ServiceProcess;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 using System.Timers;
 using MealsLibrary1;
+using System.Configuration;
+
 
 namespace AppMealService
 {
@@ -20,17 +13,35 @@ namespace AppMealService
     {
         public ServiceHost serviceHost = null;
         private Timer timer;
-        //private HttpClient httpClient;
+        private EventLog eventLog;
+        private readonly string eventLogSource;
+        private readonly string eventLogName;
+        private readonly double timerInterval;
         public MealService()
         {
             InitializeComponent();
-            StartServiceLogic();
-            //httpClient = new HttpClient();
+            eventLogSource = ConfigurationManager.AppSettings["EventLogSource"];
+            eventLogName = ConfigurationManager.AppSettings["EventLogName"];
+            timerInterval = double.Parse(ConfigurationManager.AppSettings["TimerServiceStatusInterval"]);
+            SetupEventLog();
         }
-
+        private void SetupEventLog()
+        {
+            if (!EventLog.SourceExists("RecipeAppSource"))
+            {
+                EventLog.CreateEventSource("RecipeAppSource", "RecipeAppLog");
+            }
+            eventLog = new EventLog
+            {
+                Source = eventLogSource,
+                Log = eventLogName
+            };
+        }
         protected override void OnStart(string[] args)
         {
             StartServiceLogic();
+            eventLog.WriteEntry("RecipeService started.", EventLogEntryType.Information);
+
         }
         public void StartServiceLogic()
         {
@@ -40,16 +51,32 @@ namespace AppMealService
             }
             timer = new Timer
             {
-                Interval = 60000 // 60 sekund
+                Interval = timerInterval // Interwał odpytywania usługi
             };
-            //timer.Elapsed += async (sender, e) => await FetchMealDataAsync("carbonara");
+            timer.Elapsed += CheckStatusService;
             timer.Start();
-            // Create a ServiceHost for the WcfCalculatorService type and provide the base address.
+
             serviceHost = new ServiceHost(typeof(RecipeLibrary));
 
-            // Open the ServiceHostBase to create listeners and start listening for messages.
             serviceHost.Open();
             Console.WriteLine("Usługa została uruchomiona.");
+        }
+
+        private void CheckStatusService(object sender, ElapsedEventArgs e)
+        {
+            Console.WriteLine("Sprawdzanie statusu usługi...");
+            try
+            {
+                using (ServiceController sc = new ServiceController("RecipeApp-Service"))
+                {
+                    string status = sc.Status.ToString();
+                    eventLog.WriteEntry($"Status usługi: {status}", EventLogEntryType.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Błąd podczas sprawdzania statusu usługi: {ex.Message}");
+            }
         }
 
         protected override void OnStop()
@@ -59,9 +86,9 @@ namespace AppMealService
                 serviceHost.Close();
                 serviceHost = null;
             }
+            eventLog.WriteEntry("RecipeService stopped.", EventLogEntryType.Information);
             timer?.Stop();
             timer?.Dispose();
-            //httpClient?.Dispose();
         }
 
 

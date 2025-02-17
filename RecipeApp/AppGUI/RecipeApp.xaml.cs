@@ -32,6 +32,7 @@ namespace AppGUI
             RecipeLibraryClient client = new RecipeLibraryClient();
             Recipe[] allSavedMeals_temp = client.GetAllSavedRecipes();
             savedRecipes = allSavedMeals_temp.ToList();
+            SearchResultLabel.Content = "";
             DisplayResults(savedRecipes, SavedMealsListBox);
 
         }
@@ -42,6 +43,7 @@ namespace AppGUI
             RecipeLibraryClient client = new RecipeLibraryClient();
             Recipe[] allSavedMeals_temp = client.GetAllSavedRecipes();
             savedRecipes = allSavedMeals_temp.ToList();
+            SearchResultLabel.Content = "";
             DisplayResults(savedRecipes, SavedMealsListBox);
             DisplayResults(recipes, MealsListBox);
         }
@@ -56,13 +58,22 @@ namespace AppGUI
             Console.WriteLine(searchQuery);
         }
 
-        private async void onSearchClicked(object sender, RoutedEventArgs e)
+        public async void onSearchClicked(object sender, RoutedEventArgs e)
         {
             RecipeLibraryClient client = new RecipeLibraryClient();
             //Console.WriteLine($"Długość nazwy: {searchQuery.Length}");
             Recipe[] results = await Task.Run(() => client.FetchMealsData(searchQuery));
-            recipes = results.ToList();
-
+            if(!(results.Length < 1))
+            {
+                recipes = results.ToList();
+                DisplayResults(recipes, MealsListBox);
+                SearchResultLabel.Content = $"Search result: found {recipes.Count} recipes";
+            }
+            else
+            {
+                SearchResultLabel.Content = $"Search result: No recipes found :(";
+            }
+            client.Close();
             client.Close();
             DisplayResults(recipes,MealsListBox);
         }

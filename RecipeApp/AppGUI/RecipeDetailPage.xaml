@@ -27,7 +27,7 @@
             <ColumnDefinition Width="276*"/>
             <ColumnDefinition Width="255*"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="InstructionTextBox" Margin="20,20,20,20" Grid.Row="2" TextWrapping="Wrap" Grid.ColumnSpan="2" VerticalContentAlignment="Center" SelectionBrush="#FF949494" BorderBrush="#FF1D0C0C" FontSize="13" FontFamily="Georgia" FontWeight="DemiBold" IsReadOnly="True" Grid.RowSpan="3" Padding="5,5,5,5">
+        <TextBox x:Name="InstructionTextBox" x:FieldModifier="internal" Margin="20,20,20,20" Grid.Row="2" TextWrapping="Wrap" Grid.ColumnSpan="2" VerticalContentAlignment="Center" SelectionBrush="#FF949494" BorderBrush="#FF1D0C0C" FontSize="13" FontFamily="Georgia" FontWeight="DemiBold" IsReadOnly="True" Grid.RowSpan="3" Padding="5,5,5,5">
             <TextBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFCECDCD"/>
@@ -42,7 +42,7 @@
                 </LinearGradientBrush>
             </TextBox.Foreground>
         </TextBox>
-        <Image x:Name="ThumbImageBox" Grid.Column="2" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200" Stretch="Fill" Margin="10,10,0,0" Grid.Row="2"/>
+        <Image x:Name="ThumbImageBox" x:FieldModifier="internal" Grid.Column="2" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="200" Stretch="Fill" Margin="10,10,0,0" Grid.Row="2"/>
         <Button x:Name="BackButton" Grid.Column="2" Content="Back" Margin="26,10,20,20" Grid.Row="4" FontSize="24" FontWeight="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="onBackButtonClicked"/>
         <Button x:Name="DelSaveRecipeButton" Grid.Column="2" Content="X" HorizontalAlignment="Left" Margin="26,234,0,3" Grid.Row="2" Width="80" Foreground="#FFC51E1E" Padding="0,0,0,0" VerticalContentAlignment="Center" FontSize="36" Grid.RowSpan="2" Height="80" Click="onDelSaveRecipeButtonClicked">
             <Button.Background>
@@ -71,7 +71,7 @@
                 </RadialGradientBrush>
             </Button.Background>
         </Button>
-        <TextBox x:Name="MealNameLabel" HorizontalAlignment="Center" VerticalContentAlignment="Center"  VerticalAlignment="Top" Grid.ColumnSpan="2" Height="138" Width="450" FontWeight="UltraBold" FontFamily="Georgia" FontSize="30" TextWrapping="Wrap" IsEnabled="False" Padding="5,5,5,5" Background="{x:Null}" SelectionBrush="{x:Null}" HorizontalContentAlignment="Center" SelectionOpacity="1" AllowDrop="False" Focusable="False" IsHitTestVisible="False" BorderBrush="{x:Null}" Margin="0,10,0,0" Grid.RowSpan="2">
+        <TextBox x:Name="MealNameLabel" x:FieldModifier="internal" HorizontalAlignment="Center" VerticalContentAlignment="Center"  VerticalAlignment="Top" Grid.ColumnSpan="2" Height="138" Width="450" FontWeight="UltraBold" FontFamily="Georgia" FontSize="30" TextWrapping="Wrap" IsEnabled="False" Padding="5,5,5,5" Background="{x:Null}" SelectionBrush="{x:Null}" HorizontalContentAlignment="Center" SelectionOpacity="1" AllowDrop="False" Focusable="False" IsHitTestVisible="False" BorderBrush="{x:Null}" Margin="0,10,0,0" Grid.RowSpan="2">
             <TextBox.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFBBADA2" Offset="0"/>
@@ -85,7 +85,7 @@
                 </LinearGradientBrush>
             </TextBlock.Foreground>
         </TextBox>
-        <TextBlock x:Name="CategoryMealTextBox" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Category: " VerticalAlignment="Center" Height="74" Width="210" Foreground="White" FontSize="22" FontFamily="Georgia" FontWeight="Medium" IsEnabled="False" Padding="10,10,10,10">
+        <TextBlock x:Name="CategoryMealTextBox" x:FieldModifier="internal" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Category: " VerticalAlignment="Center" Height="74" Width="210" Foreground="White" FontSize="22" FontFamily="Georgia" FontWeight="Medium" IsEnabled="False" Padding="10,10,10,10">
             <TextBlock.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF170403"/>
@@ -94,7 +94,7 @@
                 </LinearGradientBrush>
             </TextBlock.Background>
         </TextBlock>
-        <TextBlock x:Name="AreaMealTextBox" HorizontalAlignment="Left" Margin="13,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Height="74" Width="210" Foreground="White" FontSize="22" FontFamily="Georgia" FontWeight="Medium" IsEnabled="False" Padding="10,10,10,10" Grid.Column="1">
+        <TextBlock x:Name="AreaMealTextBox" x:FieldModifier="internal" HorizontalAlignment="Left" Margin="13,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Height="74" Width="210" Foreground="White" FontSize="22" FontFamily="Georgia" FontWeight="Medium" IsEnabled="False" Padding="10,10,10,10" Grid.Column="1">
             <TextBlock.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF170403"/>
@@ -110,7 +110,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="SourceLinkButton" Grid.Column="2" Content="Source Link" HorizontalAlignment="Center" Margin="5,50,5,5" VerticalAlignment="Center" Height="69" Width="186" FontSize="24" Padding="5,5,5,5" Click="onSourceLinkClicked">
+        <Button x:Name="SourceLinkButton" x:FieldModifier="internal" Grid.Column="2" Content="Source Link" HorizontalAlignment="Center" Margin="5,50,5,5" VerticalAlignment="Center" Height="69" Width="186" FontSize="24" Padding="5,5,5,5" Click="onSourceLinkClicked">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black"/>

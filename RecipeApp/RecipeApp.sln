@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MealsLibrary1", "MealsLibra
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupInstaller", "SetupInstaller\SetupInstaller.vdproj", "{E575624C-E3E7-4122-AB6A-9AC9AD65F524}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppTests", "AppGUITests\AppTests.csproj", "{36DA377B-D32E-4A02-9F78-532372DC2B92}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{A15AD179-7956-43F2-A29D-B2EC05A8CF92}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E575624C-E3E7-4122-AB6A-9AC9AD65F524}.Debug|Any CPU.ActiveCfg = Debug
 		{E575624C-E3E7-4122-AB6A-9AC9AD65F524}.Release|Any CPU.ActiveCfg = Release
+		{36DA377B-D32E-4A02-9F78-532372DC2B92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36DA377B-D32E-4A02-9F78-532372DC2B92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36DA377B-D32E-4A02-9F78-532372DC2B92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36DA377B-D32E-4A02-9F78-532372DC2B92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -23,7 +23,7 @@ namespace AppGUI
     /// </summary>
     public partial class RecipeDetailPage : Page
     {
-        private Recipe selectedRecipe;
+        public Recipe selectedRecipe;
         private List<Recipe> recipes;
         private bool isSaved = false;
         public RecipeDetailPage(Recipe recipe, List<Recipe> recipes, bool isSaved)
@@ -78,7 +78,7 @@ namespace AppGUI
             SetStyleButton(AddSaveRecipeButton, true, !isSaved);
             SetStyleButton(DelSaveRecipeButton, false, isSaved);
         }
-        private void DisplayRecipeDetails()
+        public void DisplayRecipeDetails()
         {
             //Console.WriteLine(selectedRecipe.instructions);
             

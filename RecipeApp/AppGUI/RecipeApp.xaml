@@ -35,16 +35,17 @@
             <TabItem Header="Search" Background="#FF371B0B" Foreground="#FFD69B7D" FontSize="16" Margin="0,0,0,0">
                 <Grid x:Name="SearchRecipesButton" Background="#FFC8BCB0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="95*"/>
-                        <RowDefinition Height="485*"/>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="65*"/>
+                        <RowDefinition Height="482*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="505*"/>
                         <ColumnDefinition Width="120*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="SearchMealsTextBox" Margin="10,0,24,0" VerticalAlignment="Center" Height="25" Cursor="Pen" FontSize="18" MaxLength="255" MaxLines="1" AutoWordSelection="True" TextChanged="onSearchTextChanged"/>
-                    <Button Grid.Column="1" Content="Search" VerticalAlignment="Center" Height="50" Width="90" FontWeight="SemiBold" FontSize="18" Click="onSearchClicked"/>
-                    <ListBox x:Name="MealsListBox" VerticalAlignment="Top" Height="455" Foreground="White" FontSize="18" Margin="20,95,20,0" Grid.RowSpan="2" Grid.ColumnSpan="2" TabIndex="-1" Width="590" SelectionChanged="onMealsListBox_SelectionChanged">
+                    <TextBox x:Name="SearchMealsTextBox" Margin="10,5,24,0" VerticalAlignment="Top" Height="25" Cursor="Pen" FontSize="18" MaxLength="255" MaxLines="1" AutoWordSelection="True" TextChanged="onSearchTextChanged" Grid.Row="1"/>
+                    <Button Grid.Column="1" Content="Search" VerticalAlignment="Center" Height="50" Width="90" FontWeight="SemiBold" FontSize="18" Click="onSearchClicked" Margin="16,0,15,0" Grid.RowSpan="2"/>
+                    <ListBox x:Name="MealsListBox" VerticalAlignment="Top" Height="455" Foreground="White" FontSize="18" Margin="20,1,19,0" Grid.ColumnSpan="2" TabIndex="-1" Width="590" SelectionChanged="onMealsListBox_SelectionChanged" Grid.Row="2">
                         <ListBox.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="Black"/>
@@ -53,6 +54,7 @@
                             </LinearGradientBrush>
                         </ListBox.Background>
                     </ListBox>
+                    <Label x:Name="SearchResultLabel" Content="" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Center" Width="474" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 
 
                 </Grid>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="2f8cd50a-1d5b-485f-b908-afb2a3db20ce" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8000/ProjectApp/RecipeLibrary" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="RecipeLibrary.xsd" MetadataType="Schema" ID="c4746742-741e-4cba-9939-868f7e22a203" SourceId="1" SourceUrl="http://localhost:8000/ProjectApp/RecipeLibrary?xsd=xsd0" />
+    <MetadataFile FileName="RecipeLibrary.disco" MetadataType="Disco" ID="fce3a3f7-4ba0-4f20-96a9-a354743f8e79" SourceId="1" SourceUrl="http://localhost:8000/ProjectApp/RecipeLibrary?disco" />
+    <MetadataFile FileName="RecipeLibrary1.xsd" MetadataType="Schema" ID="8676a51e-35f7-40c7-9562-3c23c456bc97" SourceId="1" SourceUrl="http://localhost:8000/ProjectApp/RecipeLibrary?xsd=xsd2" />
+    <MetadataFile FileName="RecipeLibrary2.xsd" MetadataType="Schema" ID="a86ab1de-6652-4869-af8e-9638e8638b95" SourceId="1" SourceUrl="http://localhost:8000/ProjectApp/RecipeLibrary?xsd=xsd1" />
+    <MetadataFile FileName="RecipeLibrary.wsdl" MetadataType="Wsdl" ID="0f8f7f26-d00d-43a7-9507-2124eb23094a" SourceId="1" SourceUrl="http://localhost:8000/ProjectApp/RecipeLibrary?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
