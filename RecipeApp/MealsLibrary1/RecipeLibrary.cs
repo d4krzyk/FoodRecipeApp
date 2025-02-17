@@ -14,31 +14,34 @@ namespace MealsLibrary1
     {
         private List<Recipe> _savedRecipes = new List<Recipe>();
         private static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        private static readonly string _filePath = Path.Combine(AppDirectory,"cacheLib","saved-meals.json");
+        //private static readonly string _filePath = Path.Combine(AppDirectory,"cacheLib","saved-meals.json");
+        private readonly string _filePath;
         private readonly HttpClient httpClient;
         private EventLog eventLog;
-        //private readonly string apiUrl;
+        private readonly string apiUrl;
         private readonly string eventLogSource;
         private readonly string eventLogName;
 
         public RecipeLibrary()
         {
             Console.WriteLine($"AppDirectory: {AppDirectory}");
+            _filePath = Path.Combine(AppDirectory, ConfigurationManager.AppSettings["FilePath"]);
             string directoryPath = Path.GetDirectoryName(_filePath);
             if (!Directory.Exists(directoryPath))
             {
                 Directory.CreateDirectory(directoryPath);
             }
-            //apiUrl = ConfigurationManager.AppSettings["ApiUrl"];
+            apiUrl = ConfigurationManager.AppSettings["ApiUrl"];
             eventLogSource = ConfigurationManager.AppSettings["EventLogSource"];
             eventLogName = ConfigurationManager.AppSettings["EventLogName"];
+
             LoadFromFile();
             httpClient = new HttpClient();
             SetupEventLog();
         }
         private void SetupEventLog()
         {
-            if (!EventLog.SourceExists("RecipeAppSource"))
+            if (!EventLog.SourceExists(eventLogSource))
             {
                 EventLog.CreateEventSource("RecipeAppSource", "RecipeAppLog");
             }
@@ -139,7 +142,8 @@ namespace MealsLibrary1
             List<Recipe> recipes;
             try
             {
-                string APIUrl = $"https://www.themealdb.com/api/json/v1/1/search.php?s={meal}";
+                string APIUrl = $"{apiUrl}{meal}";
+                //string APIUrl = $"https://www.themealdb.com/api/json/v1/1/search.php?s={meal}";
                 HttpResponseMessage response = httpClient.GetAsync(APIUrl).Result;
 
                 if (response.IsSuccessStatusCode)

@@ -27,7 +27,7 @@ namespace AppMealService
         }
         private void SetupEventLog()
         {
-            if (!EventLog.SourceExists("RecipeAppSource"))
+            if (!EventLog.SourceExists(eventLogSource))
             {
                 EventLog.CreateEventSource("RecipeAppSource", "RecipeAppLog");
             }
