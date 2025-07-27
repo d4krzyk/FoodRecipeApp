@@ -1,4 +1,8 @@
-# RecipeApp
+<p align="center">
+  <img src="AppGUI/cook-128.ico" alt="Ikona aplikacji" />
+</p>
+
+#  RecipeApp 
 
 ## Opis aplikacji
 RecipeApp to aplikacja desktopowa typu WPF dla systemu Windows, umo¿liwiaj¹ca wyszukiwanie, przegl¹danie oraz zapisywanie przepisów kulinarnych. Aplikacja korzysta z zewnêtrznego API (TheMealDB) oraz w³asnej us³ugi Windows Service do zarz¹dzania zapisanymi przepisami.

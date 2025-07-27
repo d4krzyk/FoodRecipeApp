@@ -161,9 +161,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="IMG_20140611_201508.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\ServiceRecipeRef\" />
   </ItemGroup>
   <ItemGroup>
