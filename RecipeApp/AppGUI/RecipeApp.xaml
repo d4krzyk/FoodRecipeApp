@@ -35,17 +35,69 @@
             <TabItem Header="Search" Background="#FF371B0B" Foreground="#FFD69B7D" FontSize="16" Margin="0,0,0,0">
                 <Grid x:Name="SearchRecipesButton" Background="#FFC8BCB0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30*"/>
-                        <RowDefinition Height="65*"/>
+                        <RowDefinition Height="39*"/>
+                        <RowDefinition Height="56*"/>
                         <RowDefinition Height="482*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="505*"/>
-                        <ColumnDefinition Width="120*"/>
+                        <ColumnDefinition Width="465*"/>
+                        <ColumnDefinition Width="81*"/>
+                        <ColumnDefinition Width="83*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="SearchMealsTextBox" Margin="10,5,24,0" VerticalAlignment="Top" Height="25" Cursor="Pen" FontSize="18" MaxLength="255" MaxLines="1" AutoWordSelection="True" TextChanged="onSearchTextChanged" Grid.Row="1"/>
-                    <Button Grid.Column="1" Content="Search" VerticalAlignment="Center" Height="50" Width="90" FontWeight="SemiBold" FontSize="18" Click="onSearchClicked" Margin="16,0,15,0" Grid.RowSpan="2"/>
-                    <ListBox x:Name="MealsListBox" VerticalAlignment="Top" Height="455" Foreground="White" FontSize="18" Margin="20,1,19,0" Grid.ColumnSpan="2" TabIndex="-1" Width="590" SelectionChanged="onMealsListBox_SelectionChanged" Grid.Row="2">
+                    <!-- Spinner -->
+                    <Ellipse x:Name="LoadingSpinner"
+                             Width="30" Height="30"
+                             Fill="Transparent"
+                             StrokeThickness="5"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Top"
+                             Grid.Row="1" Grid.Column="1"
+                             Margin="25,7,0,0" Visibility="Collapsed">
+
+                        <!-- Gradientowy obrys -->
+                        <Ellipse.Stroke>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF5D441F" Offset="1"/>
+                                <GradientStop Color="Black" Offset="0"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Stroke>
+
+                        <!-- Obcięcie jednej ćwiartki -->
+                        <Ellipse.Clip>
+                            <PathGeometry>
+                                <PathFigure StartPoint="15,0">
+                                    <!-- Start w środku górnej krawędzi -->
+                                    <ArcSegment Point="30,15" Size="15,15" SweepDirection="Clockwise"/>
+                                    <LineSegment Point="15,15"/>
+                                    <LineSegment Point="15,0"/>
+                                </PathFigure>
+                            </PathGeometry>
+                        </Ellipse.Clip>
+
+                        <!-- Obrót wokół własnej osi -->
+                        <Ellipse.RenderTransformOrigin>0.5,0.5</Ellipse.RenderTransformOrigin>
+                        <Ellipse.RenderTransform>
+                            <RotateTransform x:Name="SpinnerRotateTransform" Angle="0"/>
+                        </Ellipse.RenderTransform>
+
+                        <!-- Animacja obrotu -->
+                        <Ellipse.Triggers>
+                            <EventTrigger RoutedEvent="Ellipse.Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <DoubleAnimation Storyboard.TargetName="SpinnerRotateTransform"
+                                    Storyboard.TargetProperty="Angle"
+                                    From="0" To="360"
+                                    Duration="0:0:1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Ellipse.Triggers>
+
+                    </Ellipse>
+                    <TextBox x:Name="SearchMealsTextBox" VerticalAlignment="Top" Height="25" Cursor="Pen" FontSize="18" MaxLength="255" MaxLines="1" AutoWordSelection="True" TextChanged="onSearchTextChanged" Grid.Row="1" HorizontalAlignment="Right" Width="461" Grid.ColumnSpan="2" Margin="0,10,65,0" VerticalContentAlignment="Center"/>
+                    <Button Grid.Column="1" Content="Search" VerticalAlignment="Center" Height="50" FontWeight="SemiBold" FontSize="18" Click="onSearchClicked" Margin="60,20,20,0" Grid.RowSpan="2" Grid.ColumnSpan="2" Width="85"/>
+                    <ListBox x:Name="MealsListBox" VerticalAlignment="Top" Height="455" Foreground="White" FontSize="18" Margin="20,1,19,0" Grid.ColumnSpan="3" TabIndex="-1" SelectionChanged="onMealsListBox_SelectionChanged" Grid.Row="2">
                         <ListBox.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="Black"/>
@@ -54,7 +106,7 @@
                             </LinearGradientBrush>
                         </ListBox.Background>
                     </ListBox>
-                    <Label x:Name="SearchResultLabel" Content="" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Center" Width="474" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="SearchResultLabel" Content="" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Bottom" Width="450" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="25" Padding="0,5,0,5"/>
 
 
                 </Grid>

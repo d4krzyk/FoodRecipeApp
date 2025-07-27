@@ -1,21 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using AppGUI.ServiceRecipeRef;
 using MealsLibrary1;
-
-
 namespace AppGUI
 {
     /// <summary>
@@ -52,31 +44,66 @@ namespace AppGUI
             return savedRecipes.Any(r => r.idMeal == recipe.idMeal);
         }
 
-        private void onSearchTextChanged(object sender, TextChangedEventArgs e)
+
+        private bool IsInternetAvailable()
+            {
+                try
+                {
+                    using (var ping = new Ping())
+                    {
+                        var reply = ping.Send("www.google.com");
+                        return reply.Status == IPStatus.Success;
+                    }
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+
+
+    private void onSearchTextChanged(object sender, TextChangedEventArgs e)
         {
             searchQuery = SearchMealsTextBox.Text;
             Console.WriteLine(searchQuery);
         }
 
+
         public async void onSearchClicked(object sender, RoutedEventArgs e)
         {
             RecipeLibraryClient client = new RecipeLibraryClient();
-            //Console.WriteLine($"Długość nazwy: {searchQuery.Length}");
-            Recipe[] results = await Task.Run(() => client.FetchMealsData(searchQuery));
-            if(!(results.Length < 1))
+
+            if (!IsInternetAvailable())
             {
-                recipes = results.ToList();
-                DisplayResults(recipes, MealsListBox);
-                SearchResultLabel.Content = $"Search result: found {recipes.Count} recipes";
+                MessageBox.Show("No internet connection. Please check your network settings and try again.", "Internet Connection Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
-            else
+            LoadingSpinner.Visibility = Visibility.Visible; // Pokaż spinner
+            try
             {
-                SearchResultLabel.Content = $"Search result: No recipes found :(";
+                Recipe[] results = await Task.Run(() => client.FetchMealsData(searchQuery));
+                if (results != null && results.Length > 0)
+                {
+                    recipes = results.ToList();
+                    DisplayResults(recipes, MealsListBox);
+                    SearchResultLabel.Content = $"Search result: found {recipes.Count} recipes";
+                }
+                else
+                {
+                    SearchResultLabel.Content = "Search result: No recipes found :(";
+                }
             }
-            client.Close();
-            client.Close();
-            DisplayResults(recipes,MealsListBox);
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while fetching recipes: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                LoadingSpinner.Visibility = Visibility.Collapsed; // Ukryj spinner
+                client.Close();
+            }
         }
+
         private void DisplayResults(List<Recipe> recipes, ListBox listbox)
         {
 

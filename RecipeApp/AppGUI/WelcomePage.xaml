@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Height="720" Width="720">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="34*"/>
+            <RowDefinition Height="11*"/>
+        </Grid.RowDefinitions>
         <Label Content="Recipe  Seeker" Height="100" Width="400" FontWeight="DemiBold" FontSize="48" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Georgia" VerticalAlignment="Top" Margin="0,60,0,0" Foreground="White" RenderTransformOrigin="0.5,0.5">
             <Label.RenderTransform>
                 <TransformGroup>
@@ -24,7 +28,15 @@
             </Label.Background>
         </Label>
 
-        <Button x:Name="StartButton" Content="Start" HorizontalAlignment="Center" Height="100" Width="220" FontSize="48" Grid.RowSpan="1" Grid.ColumnSpan="1" Click="onStartButton" FontWeight="Medium" FocusVisualStyle="{x:Null}"/>
+        <Button x:Name="StartButton" Content="Start" HorizontalAlignment="Center" Height="100" Width="220" FontSize="48" Grid.RowSpan="1" Click="onStartButton" FontWeight="Medium" FocusVisualStyle="{x:Null}" Margin="0,310,0,134"/>
+        <ProgressBar  x:Name="ServiceLoaderBar" HorizontalAlignment="Center" Height="50" Grid.Row="1" VerticalAlignment="Center" Width="300" BorderBrush="Black" Background="#FF17120E" IsIndeterminate="True" Cursor="Wait" Visibility="Collapsed">
+            <ProgressBar.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF4E120C" Offset="1"/>
+                    <GradientStop Color="#00170F06" Offset="0"/>
+                </LinearGradientBrush>
+            </ProgressBar.Foreground>
+        </ProgressBar>
 
     </Grid>
 </Page>

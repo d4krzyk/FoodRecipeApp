@@ -31,6 +31,7 @@ namespace AppGUI
 
         private async void onStartButton(object sender, RoutedEventArgs e)
         {
+            ServiceLoaderBar.Visibility = Visibility.Visible;
             try
             {
                 await Task.Run(() =>
@@ -50,7 +51,10 @@ namespace AppGUI
             catch (Exception ex)
             {
                 MessageBox.Show($"Wystąpił błąd podczas uruchamiania usługi: {ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-                Console.WriteLine("Brak uprawnień administratora");
+            }
+            finally
+            {
+                ServiceLoaderBar.Visibility = Visibility.Hidden;
             }
         }
     }
