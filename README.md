@@ -1,47 +1,47 @@
 <p align="center">
-  <img src="AppGUI/cook-128.ico" alt="Ikona aplikacji" />
+  <img src="AppGUI/cook-128.ico" alt="App icon" />
 </p>
 
-#  RecipeApp 
+# RecipeApp
 
-## Opis aplikacji
-RecipeApp to aplikacja desktopowa typu WPF dla systemu Windows, umo¿liwiaj¹ca wyszukiwanie, przegl¹danie oraz zapisywanie przepisów kulinarnych. Aplikacja korzysta z zewnêtrznego API (TheMealDB) oraz w³asnej us³ugi Windows Service do zarz¹dzania zapisanymi przepisami.
+## Application Description
+RecipeApp is a desktop WPF application for Windows that allows users to search, browse, and save cooking recipes. The application uses an external API (TheMealDB) and a custom Windows Service to manage saved recipes.
 
-## G³ówne funkcje
-- **Wyszukiwanie przepisów**: U¿ytkownik mo¿e wyszukiwaæ przepisy po nazwie dania. Wyniki pobierane s¹ z zewnêtrznego API.
-- **Przegl¹danie szczegó³ów przepisu**: Po wybraniu przepisu mo¿na zobaczyæ szczegó³owe informacje, takie jak sk³adniki, instrukcje, zdjêcie, kategoria, region, link do filmu na YouTube oraz Ÿród³o.
-- **Zapisywanie przepisów**: Wybrane przepisy mo¿na zapisaæ lokalnie. Lista zapisanych przepisów jest dostêpna w aplikacji.
-- **Usuwanie zapisanych przepisów**: U¿ytkownik mo¿e usuwaæ przepisy ze swojej listy zapisanych.
-- **Obs³uga offline**: Zapisane przepisy s¹ dostêpne nawet bez po³¹czenia z internetem.
-- **Integracja z us³ug¹ Windows**: Zarz¹dzanie zapisanymi przepisami odbywa siê przez w³asn¹ us³ugê Windows (AppMealService), uruchamian¹ i zatrzymywan¹ z poziomu aplikacji.
+## Main Features
+- **Recipe Search**: Users can search for recipes by dish name. Results are fetched from an external API.
+- **View Recipe Details**: After selecting a recipe, users can view detailed information such as ingredients, instructions, image, category, region, YouTube video link, and source.
+- **Save Recipes**: Selected recipes can be saved locally. The list of saved recipes is available in the application.
+- **Delete Saved Recipes**: Users can remove recipes from their saved list.
+- **Offline Support**: Saved recipes are available even without an internet connection.
+- **Windows Service Integration**: Management of saved recipes is handled via a custom Windows Service (AppMealService), which can be started and stopped from the application.
 
-## Struktura projektu
-- **AppGUI**: Interfejs u¿ytkownika WPF. Obs³uguje nawigacjê, wyszukiwanie, wyœwietlanie i interakcje z u¿ytkownikiem.
-- **MealsLibrary1**: Logika biznesowa, komunikacja z API, obs³uga plików, serializacja przepisów, kontrakt WCF.
-- **AppMealService**: Us³uga Windows, udostêpniaj¹ca funkcje zapisu i odczytu przepisów przez WCF.
-- **AppGUITests**: Testy jednostkowe dla logiki aplikacji.
+## Project Structure
+- **AppGUI**: WPF user interface. Handles navigation, searching, displaying, and user interactions.
+- **MealsLibrary1**: Business logic, API communication, file handling, recipe serialization, WCF contract.
+- **AppMealService**: Windows Service providing recipe save/read functions via WCF.
+- **AppGUITests**: Unit tests for application logic.
 
-## Wymagania
+## Requirements
 - .NET Framework 4.7.2
 - Windows 10/11
-- Uprawnienia administratora do uruchamiania us³ugi Windows
+- Administrator privileges to run the Windows Service
 
-## Instalacja i uruchomienie
-1. **Zainstaluj us³ugê Windows**: Skompiluj projekt AppMealService i zainstaluj us³ugê za pomoc¹ narzêdzia `InstallUtil.exe` lub PowerShell.
-2. **Uruchom aplikacjê**: Skompiluj i uruchom projekt AppGUI.
-3. **Pierwsze uruchomienie**: Na ekranie powitalnym kliknij "Start", aby uruchomiæ us³ugê i przejœæ do wyszukiwania przepisów.
+## Installation and Launch
+1. **Install the Windows Service**: Build the AppMealService project and install the service using `InstallUtil.exe` or PowerShell.
+2. **Run the Application**: Build and run the AppGUI project.
+3. **First Launch**: On the welcome screen, click "Start" to launch the service and proceed to recipe search.
 
-## U¿ycie
-- Wyszukaj przepis wpisuj¹c nazwê dania i klikaj¹c "Szukaj".
-- Przegl¹daj wyniki i kliknij wybrany przepis, aby zobaczyæ szczegó³y.
-- Dodaj przepis do zapisanych lub usuñ go z listy.
-- Przegl¹daj zapisane przepisy w trybie offline.
+## Usage
+- Search for a recipe by entering the dish name and clicking "Search".
+- Browse results and click a recipe to view details.
+- Add a recipe to saved or remove it from the list.
+- Browse saved recipes offline.
 
-## Technologie
+## Technologies
 - WPF (.NET Framework 4.7.2)
 - WCF (Windows Communication Foundation)
 - Windows Service
 - JSON, HTTP
 
-## Licencja
-Projekt edukacyjny, do u¿ytku niekomercyjnego.
+## License
+Educational project, for non-commercial use.
