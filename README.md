@@ -43,8 +43,5 @@ RecipeApp to aplikacja desktopowa typu WPF dla systemu Windows, umo¿liwiaj¹ca wy
 - Windows Service
 - JSON, HTTP
 
-## Autor
-Projekt zaliczeniowy z programowania w jêzyku C#.
-
 ## Licencja
 Projekt edukacyjny, do u¿ytku niekomercyjnego.
